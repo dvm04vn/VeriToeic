@@ -1,27 +1,41 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Node modules của React
+node_modules/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Thư mục build của React (kết quả build production)
+build/
+dist/
 
-# testing
-/coverage
+# Cache của trình biên dịch, bundler (nếu dùng)
+.cache/
 
-# production
-/build
+# Các file logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# misc
-.DS_Store
+# Biến môi trường (nếu bạn có file .env trong frontend)
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-<<<<<<< HEAD
-=======
+# IDE và editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
->>>>>>> edf09a549b0b977e8638f463da79876d943a41f5
+# MacOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Các file tạm hoặc backup
+*.swp
+*.swo
+*.bak
+*.tmp

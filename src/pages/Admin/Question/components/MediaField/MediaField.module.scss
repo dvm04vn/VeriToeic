@@ -1,0 +1,28 @@
+.wrapper {
+  margin-top: 1rem;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+input[type='file'] {
+  margin-bottom: 0.5rem;
+}
+
+.preview {
+  margin-top: 0.5rem;
+
+  img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  audio {
+    width: 100%;
+  }
+}

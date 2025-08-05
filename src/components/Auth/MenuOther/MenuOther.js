@@ -35,7 +35,7 @@ function MenuOther() {
             {MENU_OTHER.map((item) => (
                 <Link
                     key={item.key}
-                    to={`${process.env.REACT_APP_URL_SERVER}/api/auth/${item.key}`}
+                    to={`${process.env.REACT_APP_SERVER}/api/auth/${item.key}`}
                     className={cx('boxContainer')}
                 >
                     <div className={cx('icon')}>

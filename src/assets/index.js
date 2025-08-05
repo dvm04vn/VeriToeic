@@ -3,7 +3,9 @@ const images = {
     // iconFB: require('~/assets/icon-facebook.png'),
     // noImage: require('~/assets/noImage.jpg'),
     // backgroundImage: require('~/assets/BackgroundEnglish.png'),
-    noImage: require('../assets/noImage.jpg')
+    noImage: require('../assets/noImage.jpg'),
+    Logo: require('../assets/LogoVeriToeic.png')
+
 };
 
 export default images;

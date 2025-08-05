@@ -1,125 +1,108 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import Button from "../../../components/Button";
-import { getUser } from "../../../services/usersService";
+
 import Avatar from "./components/Avatar";
 import Image from "../../../components/Image";
 import images from "../../../assets/index";
-import "./Header.scss";
+import styles from "./Header.module.scss";
 import Mylearn from "./components/Mylearn";
+import { IoNotifications } from "react-icons/io5";
+import classNames from "classnames/bind";
+import Notification from "./components/notification";
+import { user } from "../../../services/usersService";
+
+const cx = classNames.bind(styles);
 
 const defaultFN = () => {};
 
 function Header({ handleAuth = defaultFN }) {
-  const [user, setUser] = useState(null);
-  const [isToken, setIsToken] = useState(false);
+  const [userResult, setUserResult] = useState(null);
   const [error, setError] = useState(null);
+  const [isToken, setIsToken] = useState(false);
 
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  // Fetch user info when location changes
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        setIsToken(true);
-        try {
-          const result = await getUser();
-          if (result) {
-            setUser(result);
-          }
-        } catch (error) {
-          console.error("Lỗi lấy thông tin người dùng:", error);
-          localStorage.removeItem("token");
-          setUser(null);
-          setIsToken(false);
-          setError("Không thể lấy thông tin người dùng. Vui lòng thử lại.");
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsToken(true);
+      const fetchUser = async () => {
+        const res = await user(); // gọi API /user/profile-me
+        if (res) {
+          setUserResult(res);
         }
-      } else {
-        setUser(null);
-        setIsToken(false);
-      }
-    };
-
-    fetchUser();
-  }, [location]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    setIsToken(false);
-    // handleAuth(true);
-    // Reset auth state in parent
-    navigate("/");
-  };
+      };
+      fetchUser();
+    } else {
+      setIsToken(false);
+    }
+  }, []);
 
   return (
-    <div className="header-layout">
-      <header className="header-layout__header">
+    <div className={cx("header-layout")}>
+      <header className={cx("header")}>
         {/* Logo */}
-        <div className="header-layout__logo">
-          <Link to="/">Toiec Camp</Link>
+        <div className={cx("logo")}>
+          <Link to="/">
+            <img
+              className={cx("img-logo")}
+              src={images.Logo}
+              alt="Logo Veri-TOEIC"
+            />
+          </Link>
         </div>
+        {/* <h3 className={cx("veri")}>Veri-Toeic</h3> */}
 
-        {/* Navigation Menu */}
-        {isToken && (
-          <nav className="menu">
-            <ul>
-              {[
-                { path: "/topic", label: "Topic" },
-                { path: "/answers", label: "Answers" },
-              ].map(({ path, label }) => (
-                <li key={path}>
-                  <NavLink
-                    to={path}
-                    className={({ isActive }) =>
-                      isActive ? "menu__link menu__link--active" : "menu__link"
-                    }
-                  >
-                    {label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+        {/* Navigation */}
+        <nav className={cx("menu")}>
+          <ul>
+            {[
+              { path: "/topic", label: "Luyện tập theo chủ đề" },
+              { path: "/answers", label: "Kết quả đã luyện tập" },
+              { path: "/test", label: "Đề thi online" },
+            ].map(({ path, label }) => (
+              <li key={path}>
+                <NavLink
+                  to={path}
+                  className={({ isActive }) =>
+                    cx("menu__link", { "menu__link--active": isActive })
+                  }
+                >
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        {/* Actions (Login / User Info) */}
-        <div className="_action">
+        {/* Actions */}
+        <div className={cx("action")}>
           {isToken ? (
-            <div className="portal">
-              {/* My Courses */}
-              <Mylearn>
-                <button className={"myLearn-btn"} aria-describedby="">
-                  KHóa Học Của tôi
-                </button>
-              </Mylearn>
-
-              {/* Notifications */}
-              <div className="notification">
-                <button className="notification-btn">
-                  {/* Add notification icon here if needed */}
-                </button>
+            <div className={cx("portal")}>
+              <div className={cx("myLearn")}>
+                <Mylearn>
+                  <button className={cx("myLearn-btn")}>
+                    Khóa Học Của Tôi
+                  </button>
+                </Mylearn>
               </div>
-
-              {/* User Avatar */}
-              <div className="avatar">
-                <Avatar>
-                  <button className="avatar-btn">
+              <div className={cx("notification")}>
+                <Notification>
+                  <button className={cx("notification-btn")}>
+                    <IoNotifications />
+                  </button>
+                </Notification>
+              </div>
+              <div className={cx("avatar")}>
+                <Avatar userResult={userResult}>
+                  <button className={cx("avatar-btn")}>
                     <Image
-                      className="avatar-img"
-                      src={user?.profile?.avatar || images.noImage}
-                      alt={user?.profile?.name || "avatar"}
+                      className={cx("avatar-img")}
+                      src={userResult?.profile?.avatar || images.noImage}
+                      alt="avatar"
                     />
                   </button>
                 </Avatar>
               </div>
-
-              {/* Logout */}
-              <Button primary onClick={handleLogout}>
-                Đăng Xuất
-              </Button>
             </div>
           ) : (
             <>
@@ -134,10 +117,9 @@ function Header({ handleAuth = defaultFN }) {
         </div>
       </header>
 
-      {/* Error Message */}
       {error && (
-        <div className="error-message">
-          <p>{error}</p>
+        <div className={cx("error-message")}>
+          <p>❌ {error}</p>
         </div>
       )}
     </div>

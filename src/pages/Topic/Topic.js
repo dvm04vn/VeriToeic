@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getListTopic } from "../../services/topicService";
-import './Topic.scss'
+import { getAllTopics } from "../../services/topicService";
+import styles from "./Topic.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 function Topic() {
   const [topics, setTopics] = useState([]);
@@ -11,7 +14,7 @@ function Topic() {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await getListTopic();
+        const response = await getAllTopics();
         setTopics(response);
       } catch (err) {
         console.error(err);
@@ -24,38 +27,26 @@ function Topic() {
     fetchTopics();
   }, []);
 
-  if (loading) return <p className="loading">🔄 Đang tải danh sách chủ đề...</p>;
+  if (loading)
+    return <p className="loading">🔄 Đang tải danh sách chủ đề...</p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
-    <div className="topic-container">
-      <h2 className="topic-title">📚 Danh sách chủ đề</h2>
-      {topics.length > 0 ? (
-        <div className="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Tên chủ đề</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {topics.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>
-                    <Link to={`/quiz/${item.id}`} className="action-link">👉 Làm bài</Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className={cx("wrapper")}>
+      <h2 className={cx("topic-title")}>📚 Danh sách Đề thi TOEIC</h2>
+
+      {topics.map((topic) => (
+        <div className={cx('content')}>
+          <h3>{topic.part}</h3> 
+          <Link
+            key={topic._id}
+            to={`/quiz/${topic.slug}`}
+            className={cx("topic-iteam")}
+          >
+            <h3>{topic.name}</h3>
+          </Link>
         </div>
-      ) : (
-        <p className="no-topics">⚠️ Không có chủ đề nào.</p>
-      )}
+      ))}
     </div>
   );
 }

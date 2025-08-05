@@ -1,0 +1,33 @@
+.wrapper {
+  margin-top: 10px; // Khoảng cách trên cho phần đáp án
+}
+
+.options {
+  display: flex;
+  flex-direction: column; // Sắp xếp theo chiều dọc
+}
+
+.option {
+  display: flex; // Sử dụng flexbox để căn chỉnh
+  align-items: center; // Căn giữa theo chiều dọc
+  margin-bottom: 10px; // Khoảng cách giữa các tùy chọn
+}
+
+.radio-input {
+  width: 20px; // Chiều rộng nhỏ cho nút radio
+  height: 20px; // Chiều cao nhỏ cho nút radio
+  margin-right: 8px; // Khoảng cách giữa nút radio và nhãn
+}
+
+.radio-label {
+  font-size: 16px;
+  color: #333; // Màu chữ cho label
+  text-align: left; // Đảm bảo văn bản căn trái
+}
+
+.no-options {
+  color: #999;
+  text-align: center;
+  font-style: italic;
+  margin-top: 20px;
+}

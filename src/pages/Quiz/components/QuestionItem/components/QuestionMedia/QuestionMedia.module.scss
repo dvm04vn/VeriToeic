@@ -1,0 +1,16 @@
+.media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px; // Khoảng cách dưới cùng với phần tử tiếp theo
+}
+
+.image {
+  max-width: 100%; // Đảm bảo hình ảnh không vượt quá chiều rộng của khung
+  border-radius: 8px; // Bo góc cho hình ảnh
+  margin-bottom: 10px; // Khoảng cách giữa hình ảnh và audio
+}
+
+.audio {
+  width: 100%; // Đặt chiều rộng của audio để nó phù hợp với khung
+}

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import { getAnswersByUserId } from "../../services/answersService";
-import { getListTopic } from "../../services/topicService";
+import { getAnswersByUserId, getAnswersByUsersID } from "../../services/answersService";
+import { getListTopic, getTopicById } from "../../services/topicService";
 import { Link } from "react-router-dom";
+import styles from "./Answers.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 function Answers() {
   const [dataAnswers, setDataAnswers] = useState([]); // Khởi tạo là mảng rỗng
@@ -9,8 +13,8 @@ function Answers() {
   useEffect(() => {
     const fetchApi = async () => {
       try {
-        const answersByUserId = await getAnswersByUserId();
-        const topics = await getListTopic();
+        const answersByUserId = await getAnswersByUsersID();
+        const topics = await getTopicById();
         console.log(topics);
         console.log(answersByUserId);
 
@@ -33,11 +37,10 @@ function Answers() {
   }, []);
 
   return (
-    <>
-      <h2>Danh sách bài đã luyện tập</h2>
-      {/* Kiểm tra nếu dataAnswers có dữ liệu trước khi render */}
+    <div className={cx("container")}>
+      <h2 className={cx("title")}>Danh sách bài đã luyện tập</h2>
       {dataAnswers.length > 0 ? (
-        <table>
+        <table className={cx("table")}>
           <thead>
             <tr>
               <th>ID</th>
@@ -47,20 +50,22 @@ function Answers() {
           </thead>
           <tbody>
             {dataAnswers.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>
-                  <Link to={"/result/" + item.id}>Xem chi tiết</Link>
+              <tr key={item.id} className={cx("row")}>
+                <td className={cx("cell")}>{item.id}</td>
+                <td className={cx("cell")}>{item.name}</td>
+                <td className={cx("cell")}>
+                  <Link to={`/result/${item.id}`} className={cx("link")}>
+                    Xem chi tiết
+                  </Link>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>Không có dữ liệu để hiển thị.</p>
+        <p className={cx("noData")}>Không có dữ liệu để hiển thị.</p>
       )}
-    </>
+    </div>
   );
 }
 

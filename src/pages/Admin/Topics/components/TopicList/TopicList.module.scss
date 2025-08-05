@@ -1,0 +1,86 @@
+.list {
+    display: flex; // Sử dụng flexbox để sắp xếp
+    flex-direction: column; // Sắp xếp theo chiều dọc
+    gap: 15px; // Khoảng cách giữa các mục
+    padding: 20px; // Khoảng cách bên trong cho danh sách
+    background-color: #ffffff; // Màu nền trắng
+    border-radius: 10px; // Bo góc cho danh sách
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Đổ bóng cho danh sách
+}
+
+.item {
+    display: flex; // Sử dụng flexbox cho từng mục
+    flex-direction: column; // Sắp xếp theo chiều dọc
+    padding: 15px; // Khoảng cách bên trong cho mỗi mục
+    background-color: #f9f9f9; // Màu nền cho từng mục
+    border: 1px solid #e0e0e0; // Đường viền cho từng mục
+    border-radius: 8px; // Bo góc cho từng mục
+    transition: background-color 0.3s, box-shadow 0.3s; // Hiệu ứng chuyển đổi
+
+    &:hover {
+        background-color: #e3f2fd; // Màu nền khi hover
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); // Đổ bóng khi hover
+    }
+}
+
+.info {
+    margin-bottom: 15px; // Khoảng cách dưới cho info
+
+    h3 {
+        color: #2c3e50; // Màu chữ cho tên chủ đề
+        margin: 0; // Bỏ margin
+    }
+
+    p {
+        color: #34495e; // Màu chữ cho mô tả
+        margin: 5px 0; // Khoảng cách trên và dưới
+    }
+}
+
+.part {
+    display: inline-block; // Hiển thị như một khối để căn chỉnh tốt hơn
+    color: #007bff; // Màu chữ cho phần
+    font-weight: bold; // Đậm chữ
+    margin-top: 5px; // Khoảng cách trên cho phần
+}
+
+.actions {
+    display: flex; // Sử dụng flexbox cho các nút
+    gap: 10px; // Khoảng cách giữa các nút
+    margin-top: 10px; // Khoảng cách trên cho các nút
+}
+
+.actions Button {
+    padding: 10px 15px; // Padding cho nút
+    border-radius: 5px; // Bo góc cho nút
+    border: none; // Bỏ đường viền
+    cursor: pointer; // Hiển thị con trỏ khi hover
+    transition: background-color 0.3s; // Hiệu ứng chuyển đổi cho nút
+
+    &.add {
+        background-color: #46a95d; // Màu nền cho nút Thêm câu hỏi
+        color: #ffffff; // Màu chữ trắng
+
+        &:hover {
+            background-color: #218838; // Màu nền khi hover
+        }
+    }
+
+    &.edit {
+        background-color: #e1ae48; // Màu nền cho nút Sửa
+        color: #ffffff; // Màu chữ trắng
+
+        &:hover {
+            background-color: #ffa500; // Màu nền khi hover
+        }
+    }
+
+    &.delete {
+        background-color: #d26759; // Màu nền cho nút Xoá
+        color: #ffffff; // Màu chữ trắng
+
+        &:hover {
+            background-color: #c0392b; // Màu nền khi hover
+        }
+    }
+}

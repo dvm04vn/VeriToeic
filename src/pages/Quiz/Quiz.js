@@ -1,102 +1,107 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTopic } from "../../services/topicService";
-import { getListQuestion } from "../../services/questionsService";
-import { createAnswer } from "../../services/quizService";
+import { getTopicById } from "../../services/topicService";
+import {
+  getQuestionsByTopic,
+  getQuizById,
+  getQuizByTopicId,
+} from "../../services/questionsService";
+import { submitResult } from "../../services/answersService";
 import { getCookie } from "../../helpers/cookie";
-import Button from "../../components/Button";
-import "./Quiz.scss";
+
+import QuizHeader from "./components/QuizHeader";
+import QuizForm from "./components/QuizForm";
+
+import styles from "./Quiz.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 function Quiz() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const [dataTopic, setDataTopic] = useState(null);
-  const [dataQuestions, setDataQuestions] = useState([]);
+  const formRef = useRef(null);
 
+  const [topic, setTopic] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(180); // 3 phút
+
+  // Lấy dữ liệu topic và câu hỏi
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const topic = await getTopic(id);
-        const questions = await getListQuestion(id);
-        setDataTopic(topic);
-        setDataQuestions(questions);
-      } catch (error) {
-        console.error("Lỗi khi tải dữ liệu:", error);
-      }
-    };
-    fetchData();
-  }, [id]);
+    if (slug) {
+      fetchData();
+    }
+  }, [slug]);
+
+  const fetchData = async () => {
+    try {
+      const topicData = await getTopicById(slug);
+      const questionData = await getQuizByTopicId(slug);
+
+      setTopic(topicData);
+      setQuestions(questionData);
+    } catch (error) {
+      console.error("❌ Lỗi khi tải dữ liệu:", error);
+    }
+  };
+  // Đếm ngược thời gian
+  useEffect(() => {
+    if (timeLeft <= 0 && formRef.current) {
+      formRef.current.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
+      return;
+    }
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    const selectedAnswers = dataQuestions.map((q) => ({
+    const selectedAnswers = questions.map((q) => ({
       questionId: q.id,
-      answer: parseInt(formData.get(q.id.toString())),
+      answer: parseInt(formData.get(q.id)),
     }));
 
-    const isIncomplete = selectedAnswers.some((a) => isNaN(a.answer));
-    if (isIncomplete) {
-      alert("Vui lòng trả lời tất cả các câu hỏi trước khi nộp bài.");
+    if (selectedAnswers.some((a) => isNaN(a.answer))) {
+      alert("Vui lòng trả lời tất cả câu hỏi trước khi nộp bài.");
       return;
     }
 
     const payload = {
-      userId: parseInt(getCookie("id")),
-      topicId: parseInt(id),
+      userId: getCookie("id"),
+      topicId: slug,
       answers: selectedAnswers,
     };
 
     try {
-      const response = await createAnswer(payload);
-      if (response?.id) {
-        navigate(`/result/${response.id}`);
+      const res = await submitResult(payload);
+      if (res?.id) {
+        navigate(`/result/${res.id}`);
       } else {
         alert("Đã có lỗi xảy ra khi nộp bài.");
       }
-    } catch (error) {
-      console.error("Lỗi khi nộp bài:", error);
-      alert("Không thể nộp bài. Vui lòng thử lại sau.");
+    } catch (err) {
+      console.error("Lỗi nộp bài:", err);
+      alert("Không thể nộp bài. Vui lòng thử lại.");
     }
   };
 
   return (
-    <div>
-      <h2>Chủ đề: {dataTopic?.name}</h2>
-      <p>{dataTopic?.description}</p>
+    <div className={cx("wrapper")}>
+      <div className={cx("inner")}>
+        <QuizHeader title={topic?.name} description={topic?.description} />
 
-      <div className="form-quiz">
-        {dataQuestions.length === 0 ? (
-          <p>Không có câu hỏi nào trong chủ đề này.</p>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            {dataQuestions.map((question, index) => (
-              <div className="form-quiz__item" key={question.id}>
-                <p>
-                  Câu {index + 1}: {question.question}
-                </p>
-                {question.answers.map((ans, ansIndex) => (
-                  <div
-                    className="form-quiz__answer"
-                    key={`${question.id}-${ansIndex}`}
-                  >
-                    <input
-                      type="radio"
-                      name={question.id.toString()}
-                      value={ansIndex}
-                      id={`quiz-${question.id}-${ansIndex}`}
-                    />
-                    <label htmlFor={`quiz-${question.id}-${ansIndex}`}>
-                      {ans}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            ))}
-            <Button type="submit">Nộp bài</Button>
-          </form>
-        )}
+        <QuizForm
+          questions={questions}
+          formRef={formRef}
+          onSubmit={handleSubmit}
+          timeLeft={timeLeft}
+        />
       </div>
     </div>
   );

@@ -1,65 +1,70 @@
-// HomeLayout.module.scss
+// responsive
+
+// mobile < 740px
+@media only screen and (max-width: 1023px) {
+    .sidebar {
+        position: fixed;
+        top: unset;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: var(--height-header-wrapper);
+        padding: 0;
+        border-top: 1px solid #e8ebed;
+        background: #fff;
+        z-index: 20;
+    }
+    .content {
+        margin-bottom: var(--height-header-wrapper);
+    }
+}
+
+// desktop >= 1024px
+@media only screen and (min-width: 1024px) and (max-width: 1399px) {
+    .sidebar {
+        position: fixed;
+    }
+    .content {
+        margin-left: var(--width-sidebar-wrapper);
+    }
+}
+//  > 1400
+@media only screen and (min-width: 1400px) {
+    .sidebar {
+        position: fixed;
+    }
+    .content {
+        margin-left: var(--width-sidebar-wrapper);
+    }
+}
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
-
-.container {
-  display: flex;
-  flex: 1;
-}
-
-.sidebar {
-  position: fixed;
-  top: 64px; /* Đảm bảo sidebar bắt đầu dưới header */
-  left: 0;
-  // width: 250px;
-  height: calc(100% - 60px); /* Chiều cao sidebar bằng toàn bộ chiều cao màn hình trừ chiều cao header */
-  background-color: #f4f4f4; /* Điều chỉnh theo màu sắc của bạn */
-  // padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Để sidebar có bóng nhẹ */
-  z-index: 100; /* Đảm bảo sidebar không bị che khuất bởi các phần tử khác */
-}
-
-.content {
-  margin-left: 220px; /* Đảm bảo content không lấn vào sidebar */
-  flex: 1;
-  padding: 1rem;
-  background-color: #fff;
-  overflow-x: hidden; /* Ngăn việc cuộn ngang */
-}
-
+// .container {
+//     display: flex;
+//     background-color: rgba(255, 255, 255, 0.7);
+//     margin-top: var(--height-header-wrapper);
+//     gap: 1.6rem;
+// }
+// .content {
+//     flex: 1;
+//     width: 100%;
+// }
 .inner {
-  max-width: 1200px;
-  margin: 0 auto;
+    width: 100%;
 }
-
 .auth {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.auth .modal {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 400px;
-}
-
-.footer {
-  background-color: #1f2937; /* Màu nền footer */
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    background-color: rgba(0, 0, 0, 0.2);
 }

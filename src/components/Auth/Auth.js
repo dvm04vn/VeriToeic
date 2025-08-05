@@ -30,7 +30,7 @@ function Auth({ is_login, handleOnClose = defaultFn }) {
     >
       <div className={cx("header")}>
         <h3>
-          {isLogin ? "Đăng Nhập Vào Toiec Camp" : "Đăng Kí Vào Toiec Camp"}
+          {isLogin ? "Đăng Nhập Vào Veri-TOEIC" : "Đăng Kí Vào Veri-TOEIC"}
         </h3>
         <button className={cx("close")} onClick={handleOnClose}>
           <IoIosCloseCircle />

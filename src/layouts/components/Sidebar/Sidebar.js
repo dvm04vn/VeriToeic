@@ -1,45 +1,54 @@
-import React from 'react';
+import classNames from 'classnames/bind';
+import { AiFillHome } from 'react-icons/ai';
+import { FaRoad, FaNewspaper } from 'react-icons/fa6';
+
+import styles from './SideBar.module.scss';
 import { NavLink } from 'react-router-dom';
-import './Sidebar.scss';
 
-const LIST_SIDEBARS = () => [
-  {
-    title: 'Trang chủ',
-    icon: "🏠",
-    to: '/',
-  },
-  {
-    title: 'Lộ trình',
-    icon: "📚",
-    to: '/learning-paths',
-  },
-  {
-    title: 'Bài viết',
-    icon: "📝",
-    to: "/question", 
-  }
+const cx = classNames.bind(styles);
+
+const LIST_SIDEBARS = [
+    {
+        title: 'Trang Chủ',
+        icon: <AiFillHome />,
+        to: '/',
+    },
+    {
+        title: 'Lộ trình',
+        icon: <FaRoad />,
+        to: '/learning-paths',
+    },
+    {
+        title: 'Bài Viết',
+        icon: <FaNewspaper />,
+        to: `/blog?page=1`,
+    },
 ];
-
-function Sidebar({ topicId }) {
-  const ListSidebar = LIST_SIDEBARS(topicId); // Gọi hàm với topicId
-
-  return (
-    <div className='sidebar-default'>
-      <div className='sidebar-container'>
-        {ListSidebar.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.to}
-            end
-            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}
-          >
-            <span>{item.icon}</span>
-            <span>{item.title}</span>
-          </NavLink>
-        ))}
-      </div>
-    </div>
-  );
+function SideBarDefault({ ListSidebar = LIST_SIDEBARS }) {
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('container')}>
+                {ListSidebar.map((item, index) => (
+                    <NavLink
+                        key={index}
+                        to={item.to}
+                        end
+                        className={(nav) => {
+                            console.log(nav);
+                            return cx('itemBtn', {
+                                active: nav.isActive,
+                            });
+                        }}
+                    >
+                        <span className={cx('itemBtn-icon')}>{item.icon}</span>
+                        <span className={cx('itemBtn-title')}>
+                            {item.title}
+                        </span>
+                    </NavLink>
+                ))}
+            </div>
+        </div>
+    );
 }
 
-export default Sidebar;
+export default SideBarDefault;

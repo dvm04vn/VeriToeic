@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAnswer } from "../../services/answersService";
-import { getListQuestion } from "../../services/questionsService";
-import './Result.scss';
+import { getAnswer, getResultByQuiz } from "../../services/answersService";
+import { getListQuestion, getQuestionsByTopic, getQuizByTopicId } from "../../services/questionsService";
+import "./Result.scss";
 
 function Result() {
   const { id } = useParams(); // Lấy id từ params
   const [dataResult, setDataResult] = useState([]);
   const [loading, setLoading] = useState(true); // Trạng thái loading
   const [error, setError] = useState(null); // Trạng thái lỗi
+  const [totalCorrect, setTotalCorrect] = useState(0); // Số câu đúng
 
+  // Fetch dữ liệu khi component mount
   useEffect(() => {
     const fetchApi = async () => {
       try {
-        const dataAnswers = await getAnswer(id); // Lấy câu trả lời của người dùng
-        const dataQuestions = await getListQuestion(dataAnswers.topicId); // Lấy danh sách câu hỏi
+        const dataAnswers = await getResultByQuiz(id); // Lấy câu trả lời của người dùng
+        const dataQuestions = await getQuizByTopicId(dataAnswers.topicId); // Lấy danh sách câu hỏi
 
         // Kết hợp câu hỏi và câu trả lời
         const resultFinal = dataQuestions.map((question) => {
@@ -37,21 +39,29 @@ function Result() {
     };
 
     fetchApi();
-  }, [id]); // Phụ thuộc vào id để khi id thay đổi sẽ gọi lại API
+  }, [id]);
 
-  // Nếu đang tải dữ liệu
-  if (loading) {
-    return <div>Đang tải dữ liệu...</div>;
-  }
+  // Cập nhật số câu đúng khi dataResult thay đổi
+  useEffect(() => {
+    const correctCount = dataResult.reduce((count, item) => {
+      return count + (item.correctIndex === item.userAnswer ? 1 : 0);
+    }, 0);
+    setTotalCorrect(correctCount);
+  }, [dataResult]);
 
-  // Nếu có lỗi xảy ra
-  if (error) {
-    return <div>{error}</div>;
-  }
+  // Trạng thái loading
+  if (loading) return <div>Đang tải dữ liệu...</div>;
 
+  // Trạng thái lỗi
+  if (error) return <div>{error}</div>;
+
+  // JSX kết quả
   return (
     <>
-      <h1>Kết quả:</h1>
+      <h1>Kết quả làm bài</h1>
+      <p>
+        Số câu đúng: <strong>{totalCorrect}</strong> / {dataResult.length}
+      </p>
       <div className="result-list">
         {dataResult.map((item, index) => (
           <div className="result-item" key={item.id}>
