@@ -27,10 +27,10 @@ function LoginUser() {
 
     setLoading(true);
     try {
-      const res = await login(email.toLowerCase(), password);
-      if (res?.accessToken) {
+      const result = await login(email.toLowerCase(), password);
+      if (result?.meta?.token) {
         toast.success("🎉 Đăng nhập thành công!");
-        localStorage.setItem("token", res.accessToken);
+        localStorage.setItem("token", result.meta.token);
         // localStorage.setItem("user", JSON.stringify(res.user));
         window.location.reload();
 

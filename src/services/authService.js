@@ -30,16 +30,7 @@ export const login = async (email, password) => {
 };
 
 
-// Lấy thông tin profile người dùng
-// export const getProfile = async () => {
-//   try {
-//     const res = await httpRequest.get('user/profile-me');
-//     return res;
-//   } catch (error) {
-//     console.error('Lỗi khi lấy profile:', error);
-//     throw error;
-//   }
-// };
+
 
 export const logout = async() => {
   try {
@@ -50,7 +41,3 @@ export const logout = async() => {
     throw err;
   }
 }
-// Đăng xuất người dùng
-// export const logout = () => {
-//   localStorage.removeItem('token');
-// };

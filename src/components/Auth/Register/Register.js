@@ -33,9 +33,13 @@ function RegisterUser() {
 
     setLoading(true);
     try {
-      const res = await register(fullname.trim(), email.toLowerCase(), password);
-      if (res?.error) {
-        toast.error(res.message || "Đăng ký thất bại.");
+      const result = await register(
+        fullname.trim(),
+        email.toLowerCase(),
+        password
+      );
+      if (result?.error) {
+        toast.error(result.message || "Đăng ký thất bại.");
         return;
       }
 
@@ -43,8 +47,7 @@ function RegisterUser() {
       setFullname("");
       setEmail("");
       setPassword("");
-      localStorage.setItem("token", res.accessToken);
-        localStorage.setItem("user", JSON.stringify(res.user));
+      localStorage.setItem("token", result.meta.token);
       window.location.reload();
 
       // Chuyển trang sau đăng ký (nếu cần)

@@ -5,16 +5,6 @@ const httpsRequest = axios.create({
     withCredentials: true,
 });
 
-// httpsRequest.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`; // ✅
-//     }
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
 // ✅ Gửi token trong mỗi request
 const token = localStorage.getItem('token');
 
