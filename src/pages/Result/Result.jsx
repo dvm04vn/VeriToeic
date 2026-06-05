@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAnswer, getResultByQuiz } from "../../services/answersService";
-import { getListQuestion, getQuestionsByTopic, getQuizByTopicId } from "../../services/questionsService";
+import {  getResultByQuiz } from "../../services/answersService";
+import {  getQuizByTopicId } from "../../services/questionsService";
 import "./Result.scss";
 
 function Result() {

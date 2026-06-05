@@ -3,14 +3,14 @@ import { Link, NavLink } from "react-router-dom";
 import Button from "../../../components/Button";
 
 import Avatar from "./components/Avatar";
-import Image from "../../../components/Image";
-import images from "../../../assets/index";
+import Image from "~/components/Image";
 import styles from "./Header.module.scss";
 import Mylearn from "./components/Mylearn";
 import { IoNotifications } from "react-icons/io5";
 import classNames from "classnames/bind";
 import Notification from "./components/notification";
 import { user } from "../../../services/usersService";
+import images from "~/assets";
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +18,6 @@ const defaultFN = () => {};
 
 function Header({ handleAuth = defaultFN }) {
   const [userResult, setUserResult] = useState(null);
-  const [error, setError] = useState(null);
   const [isToken, setIsToken] = useState(false);
 
   useEffect(() => {
@@ -116,12 +115,6 @@ function Header({ handleAuth = defaultFN }) {
           )}
         </div>
       </header>
-
-      {error && (
-        <div className={cx("error-message")}>
-          <p>❌ {error}</p>
-        </div>
-      )}
     </div>
   );
 }

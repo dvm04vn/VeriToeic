@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getTopicById } from "../../services/topicService";
 import {
-  getQuestionsByTopic,
-  getQuizById,
   getQuizByTopicId,
 } from "../../services/questionsService";
 import { submitResult } from "../../services/answersService";

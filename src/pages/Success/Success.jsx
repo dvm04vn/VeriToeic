@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import classNames from "classnames/bind";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";

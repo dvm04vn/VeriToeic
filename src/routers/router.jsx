@@ -13,8 +13,6 @@ import DefaultLayout from '../layouts/DefaultLayout'
 import Personal from "../pages/Setting/components/Personal";
 import Setting from "../pages/Setting";
 import Security from "../pages/Setting/components/Security";
-import { Admin, AdminQuestion, AdminTopics } from "../pages/Admin";
-import AdminLayout from '../layouts/Admin';
 
 import Success from "../pages/Success";
 
@@ -37,10 +35,7 @@ const PublicRouters = [
     // {path: '/profile', component: Profile, layout:HomeLayout },
     {path: '/setting/personal', component: Personal, layout: Setting},
     {path: '/setting/security', component: Security, layout: Setting},
-    { path: '/admin/', component: Admin, layout: AdminLayout },
-    { path: '/admin/topics', component: AdminTopics , layout: AdminLayout},
-    { path: '/admin/:slug/add-questions', component: AdminQuestion , layout: AdminLayout},
-    // { path: '/admin/question', component: AdminQuestion , layout: AdminLayout},
+    
 ];
 
 export { PrivateRouters, PublicRouters};
