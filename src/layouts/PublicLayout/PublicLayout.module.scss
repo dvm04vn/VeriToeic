@@ -1,0 +1,23 @@
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8fafc;
+
+    --header-height: 76px;
+}
+
+.container {
+    flex: 1;
+    width: 100%;
+    padding-top: var(--header-height);
+}
+
+.content {
+    width: 100%;
+    min-height: calc(100vh - var(--header-height));
+}
+
+.main {
+    width: 100%;
+}

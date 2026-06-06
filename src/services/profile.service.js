@@ -1,7 +1,7 @@
 import * as httpRequest from '../utils/httpsRequest';
 
 // Gọi API để lấy thông tin profile người dùng
-export const Profile_ME = async () => {
+export const getProfile = async () => {
   try {
     const res = await httpRequest.get('/profile/me');
     return res;

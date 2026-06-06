@@ -1,222 +1,254 @@
-// Variables
-$color-primary: #1d4ed8;
-$color-secondary: #e0e7ff;
-$color-text: #4b5563;
-$color-bg: #f3f4f6;
-$color-white: #ffffff;
-$color-dark: #1f2937;
-$color-shadow: rgba(0, 0, 0, 0.05);
+.wrapper {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+}
 
-.header-layout {
-  width: 100%;
-  background-color: $color-white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-
-  .header {
+.header {
+    height: 76px;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 63px;
-    padding: 0 20px;
-    box-shadow: 0 2px 8px $color-shadow;
-    background-color: $color-white;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      height: auto;
-      padding: 10px 20px;
-      gap: 12px;
-    }
-  }
-
-  
-  
 }
 
-.menu {
-  ul {
+.logo {
     display: flex;
-    gap: 24px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 12px;
-      align-items: flex-start;
-      width: 100%;
-    }
-  }
-
-  &__link {
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
-    font-size: 18px;
-    color: #4b5563;
-    padding: 6px 12px;
-    border-radius: 8px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    display: inline-block;
+}
+
+.img-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.logo-text {
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+
+    span {
+        color: #2563eb;
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-link {
+    position: relative;
+    color: #334155;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 0;
+        height: 3px;
+        border-radius: 999px;
+        background-color: #2563eb;
+        transition: width 0.2s ease;
+    }
 
     &:hover {
-      background-color: $color-bg;
-      color: $color-dark;
+        color: #2563eb;
     }
 
-    &--active {
-      color: $color-primary;
-      font-weight: 600;
-      background-color: $color-secondary;
+    &.active {
+        color: #2563eb;
+
+        &::after {
+            width: 100%;
+        }
     }
-  }
 }
 
 .action {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    justify-content: center;
-  }
-
-  button {
-    cursor: pointer;
-  }
-}
-
-.portal {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .myLearn-btn,
-  .notification-btn,
-  .avatar-btn {
-    background: none;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    color: $color-text;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-
-    &:hover {
-      background-color: $color-bg;
-      color: $color-dark;
-    }
-  }
-
-  .myLearn-btn {
-    border: 1px solid $color-primary;
-    color: $color-primary;
-    background-color: transparent;
-
-    &:hover {
-      background-color: $color-primary;
-      color: $color-white;
-    }
-  }
-
-  .notification-btn {
-    font-size: 20px;
-    padding: 6px 10px;
-  }
-
-  .avatar {
-    position: relative;
-
-    .avatar-img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid $color-primary;
-      transition: border-color 0.3s ease;
-
-      &:hover {
-        border-color: darken($color-primary, 10%);
-      }
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 110%;
-      right: 0;
-      background: $color-white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      z-index: 10;
-      min-width: 150px;
-
-      button {
-        width: 100%;
-        padding: 10px 16px;
-        border: none;
-        background: $color-white;
-        text-align: left;
-        cursor: pointer;
-        font-size: 14px;
-        color: $color-text;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background-color: $color-bg;
-          color: $color-dark;
-        }
-      }
-    }
-
-    &:hover .dropdown {
-      display: block;
-    }
-  }
-}
-
-// Error message styling
-.error-message {
-  background-color: lighten($color-primary, 45%);
-  color: darken($color-primary, 25%);
-  padding: 10px 20px;
-  margin: 10px auto;
-  max-width: 600px;
-  border: 1px solid darken($color-primary, 25%);
-  border-radius: 8px;
-  font-size: 14px;
-  text-align: center;
-}
-// _Logo
-._Logo {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 1.6rem;
-    font-size: 1.8rem;
-    color: var(--text-color);
-}
-.img-logo {
-    width: 5.8rem;
-    image-rendering: auto;
+    gap: 14px;
     flex-shrink: 0;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Đổ bóng cho ảnh */
 }
-.veri {
-  margin-right: 200px;
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #0f172a;
+    text-decoration: none;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.username {
+    max-width: 150px;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+    background-color: #eff6ff;
+    cursor: pointer;
+
+    span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 4px auto;
+        border-radius: 999px;
+        background-color: #2563eb;
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    &.active {
+        span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        span:nth-child(2) {
+            opacity: 0;
+        }
+
+        span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .header {
+        height: 70px;
+        padding: 0 20px;
+    }
+
+    .nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 12px 24px 18px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);
+
+        &.active {
+            display: flex;
+        }
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 14px 0;
+        font-size: 15px;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .username {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .header {
+        height: 66px;
+        padding: 0 16px;
+    }
+
+    .img-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .logo-text {
+        font-size: 21px;
+    }
+
+    .nav {
+        top: 66px;
+        padding: 12px 18px 18px;
+    }
+
+    .auth-buttons {
+        display: none;
+    }
+
+    .user-box {
+        gap: 8px;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
 }

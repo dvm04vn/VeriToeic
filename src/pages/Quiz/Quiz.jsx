@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTopicById } from "../../services/topicService";
+import { getTopicById } from "../../services/topic.service";
 import {
   getQuizByTopicId,
-} from "../../services/questionsService";
-import { submitResult } from "../../services/answersService";
+} from "../../services/questions.service";
+import { submitResult } from "../../services/answers.service";
 import { getCookie } from "../../helpers/cookie";
 
 import QuizHeader from "./components/QuizHeader";

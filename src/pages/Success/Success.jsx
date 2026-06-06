@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import styles from "./Success.module.scss";
 import { IconNavigation, LottieLoading } from "../../components/Icon";
-import { successGG } from "../../services/successService";
+import { successGG } from "../../services/success.service";
 
 const cx = classNames.bind(styles);
 

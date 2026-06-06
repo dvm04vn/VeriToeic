@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Security.module.scss";
 import classNames from "classnames/bind";
-import { Profile_ME } from "../../../../services/ProfileService";
+import { getProfile } from "../../../../services/profile.service";
 
 const cx = classNames.bind(styles);
 const LIST_INFO = {
@@ -27,7 +27,7 @@ function Security() {
     fetchAPI();
   })
   const fetchAPI = async () => {
-      const res = await Profile_ME();
+      const res = await getProfile();
 
       setListInfo((prev) => ({
         ...prev,

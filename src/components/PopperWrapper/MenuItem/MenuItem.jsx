@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 
 import styles from "./MenuItem.module.scss";
 import Button from "../../../components/Button";
-import { logout } from "../../../services/authService";
+import { logout } from "../../../services/auth.service";
 
 const cx = classNames.bind(styles);
 

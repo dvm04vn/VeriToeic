@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './Personal.module.scss';
 import ListItem from '../ListItem';
-import { Profile_ME } from '../../../../services/ProfileService';
+import { getProfile } from '~/services/profile.service';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 const cx = classNames.bind(styles);
@@ -90,7 +90,7 @@ function Personal() {
     }, [isRerender]);
     // fetch api
     const fetchAPI = async () => {
-        const result = await Profile_ME();
+        const result = await getProfile();
 
         setListInfo((prevState) => ({
             ...prevState,

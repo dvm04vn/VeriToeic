@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import {  getAnswersByUsersID } from "../../services/answersService";
-import { getTopicById } from "../../services/topicService";
+import {  getAnswersByUsersID } from "../../services/answers.service";
+import { getTopicById } from "../../services/topic.service";
 import { Link } from "react-router-dom";
 import styles from "./Answers.module.scss";
 import classNames from "classnames/bind";

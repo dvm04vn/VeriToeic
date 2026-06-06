@@ -1,10 +1,129 @@
 .footer {
-    background-color: #282c34;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    position: relative;
-    bottom: 0;
     width: 100%;
-    font-size: 0.9rem;
-  }
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    color: #475569;
+}
+
+.inner {
+    // max-width: 1200px;
+    // margin: 0 auto;
+    padding: 48px 24px 36px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 36px;
+}
+
+.brand {
+    max-width: 380px;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 16px;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 46px;
+    width: auto;
+    object-fit: contain;
+}
+
+.description {
+    margin: 0;
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.column {
+    h3 {
+        margin: 0 0 16px;
+        color: #0f172a;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        margin-bottom: 12px;
+    }
+
+    a,
+    span {
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.5;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    a:hover {
+        color: #2563eb;
+    }
+}
+
+.bottom {
+    padding: 18px 24px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    background-color: #f8fafc;
+
+    p {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 992px) {
+    .inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+
+    .brand {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .inner {
+        padding: 40px 18px 28px;
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .logo-img {
+        height: 42px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .column {
+        h3 {
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    }
+
+    .bottom {
+        padding: 16px 18px;
+
+        p {
+            font-size: 13px;
+        }
+    }
+}

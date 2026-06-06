@@ -3,7 +3,7 @@ import { IoIosCloseCircleOutline, IoIosAdd } from 'react-icons/io';
 import { useState } from 'react';
 import styles from './Overlay.module.scss';
 import Button from '../../../../../../components/Button';
-import { updateProfile } from '../../../../../../services/ProfileService';
+import { updateProfile } from '../../../../../../services/profile.service';
 import Image from '../../../../../../components/Image';
 import images from '../../../../../../assets';
 import { ToastContainer, toast } from "react-toastify"; // Nhập ToastContainer và toast

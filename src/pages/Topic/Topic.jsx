@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllTopics } from "../../services/topicService";
+import { getAllTopics } from "../../services/topic.service";
 import styles from "./Topic.module.scss";
 import classNames from "classnames/bind";
 

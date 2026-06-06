@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {  getResultByQuiz } from "../../services/answersService";
-import {  getQuizByTopicId } from "../../services/questionsService";
-import "./Result.scss";
+import {  getResultByQuiz } from "../../services/answers.service";
+import {  getQuizByTopicId } from "../../services/questions.service";
+import "./Result.module.scss";
 
 function Result() {
   const { id } = useParams(); // Lấy id từ params
